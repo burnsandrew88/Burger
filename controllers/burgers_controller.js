@@ -13,3 +13,21 @@ router.get("/", function(req, res){
         res.render("index", hbsObject);
     });
 });
+router.post("/", function(req,res){
+    burger.insertOne([
+        req.body.burger_name, false
+    ], function(){
+        res.redirect("/")
+    });
+});
+
+router.post("/:id", function(req,res){
+    var condition = req.params.id;
+
+    console.log("condition", condition);
+    burger.updateOne("devoured", true, condition, function(){
+        res.redirect("/");
+    });
+});
+
+module.exports = router;
